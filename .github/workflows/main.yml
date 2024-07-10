@@ -4,6 +4,7 @@ on:
   push:
       branches:
       - main
+      - develop
 
 
 jobs:
@@ -16,4 +17,18 @@ jobs:
 
         - name: SaySomething
           run: echo "hello world"
-        
+
+  hello-branches:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Download your code
+          uses: actions/checkout@v2
+
+        - name: Verify develop branch
+          if : ${{ github.ref == 'refs/heads/develop'}}
+          run: echo "hello develop"
+          
+        - name: verify main branch
+          if: ${{ github.ref == 'refs/heads/main'}}
+          run: echo "hello main"
